@@ -14,6 +14,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var flash = require('connect-flash');
+var multer = require('multer');
 
 var app = express();
 
@@ -29,6 +30,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+//app.use(bodyParser({keepExtensions:true, uploadDir:'./public/images'}));
+app.use(multer({dest:'./public/images'}));
 
 app.use(session({
     resave: true,

@@ -9,7 +9,7 @@ function User(user){
     this.email = user.email;
 };
 
-
+module.exports = User;
 
 //存储用户信息
 User.prototype.save = function(callback) {
@@ -67,4 +67,3 @@ User.get = function(name, callback) {
     });
 };
 
-module.exports = User;

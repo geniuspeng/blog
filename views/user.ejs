@@ -1,6 +1,4 @@
-
 <%- include header %>
-这是主页
 <% posts.forEach(function (post, index) { %>
 <p><h2><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></h2>
 <a href="/u/<%= post.name %>"><img src="<%= post.head %>" class="r_head" /></a></p>
@@ -10,4 +8,4 @@
 </p>
 <p><%- post.post %></p>
 <% }) %>
-    <%- include footer %>
+<%- include footer %>
