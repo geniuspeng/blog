@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+    <link rel="stylesheet" href='/stylesheets/bootstrap.min.css'>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+    <header>
+        <h1><%= title %></h1>
+    </header>
+    <ul style="position: fixed;left: 12em" class="nav nav-pills nav-stacked">
+        <li class="active"><a href="##">导航栏</a></li>
+        <li><a title="主页" href="/">HOME</a></li>
+        <% if(user) { %>
+        <li><a title="发表" href="/post">POST</a></li>
+        <li><a title="登出" href="/logout">LOGOUT</a></li>
+        <% } else { %>
+        <li><a title="登陆" href="/login">LOGIN</a></li>
+        <li><a title="注册" href="/reg">RESISTER</a></li>
+       <% } %>
+        <li class="disabled"><a href="##">nothing11</a></li>
+    </ul>
+    <!--<nav>-->
+        <!--<span><a title="主页" href="/">home</a> </span>-->
+        <!--<span><a title="主页" href="/login">login</a> </span>-->
+        <!--<span><a title="主页" href="/reg">register</a> </span>-->
+    <!--</nav>-->
+    <article>
+
+     <% if (success) { %>
+            <div><%= success %></div>
+            <% } %>
+            <% if (error) { %>
+            <div><%= error %> </div>
+     <% } %>
