@@ -24,7 +24,7 @@ User.prototype.save = function(callback) {
         if (err) {
             return callback(err);
         }
-        //读取user集合
+        //读取users集合
         db.collection('users', function (err, collection) {
             if (err) {
                 mongodb.close();
@@ -49,7 +49,7 @@ User.get = function(name, callback) {
         if (err) {
             return callback(err);
         }
-        //读取user集合
+        //读取users集合
         db.collection('users', function (err, collection) {
             if (err) {
                 mongodb.close();

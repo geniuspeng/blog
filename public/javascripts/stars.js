@@ -47,8 +47,8 @@ starObj.prototype.draw = function() {
 	ctx.save();
     //globalAlpha全局透明度
 	ctx.globalAlpha = Math.sin(this.beta) * alive;
-	console.log(alive);
-	console.log(ctx.globalAlpha);
+//	console.log(alive);
+//	console.log(ctx.globalAlpha);
 	ctx.drawImage(starPic, this.picNo * 7, 0, 7, 7, this.x, this.y, 7, 7);
 	ctx.restore();
 };
