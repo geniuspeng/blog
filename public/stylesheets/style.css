@@ -10,3 +10,17 @@ body {
 a {
   color: #00B7FF;
 }
+
+.archive{
+    list-style: none;
+    line-height: 28px;
+}
+.archive h3{
+    margin: 0.5em 0;
+}
+.archive time{
+    float: left;
+    font-size: 14px;
+    color: #999;
+    margin-right: 1.2em;
+}
