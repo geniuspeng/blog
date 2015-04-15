@@ -10,6 +10,12 @@
     <header>
         <h1><%= title %></h1>
     </header>
+    <span>
+        <form action="/search" method="get">
+            <input type="search" name="keyword" placeholder="SEARCH">
+            <button type="submit" class="btn btn-default">SEARCH</button>
+        </form>
+    </span>
     <ul style="position: fixed;left: 12em" class="nav nav-pills nav-stacked">
         <li class="active"><a href="##">导航栏</a></li>
         <li><a title="主页" href="/">HOME</a></li>

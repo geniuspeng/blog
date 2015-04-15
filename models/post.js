@@ -33,7 +33,8 @@ Post.prototype.save = function(callback) {
         title: this.title,
         tags : this.tags,
         post: this.post,
-        comments: []
+        comments: [],
+        pv: 0
     };
     //打开数据库
     mongodb.open(function (err, db) {
@@ -116,10 +117,22 @@ Post.getOne = function(name, day, title, callback){
                     mongodb.close();
                     return callback(err);
                 }
-
-                    //解析 markdown 为 html
-                //doc.post = markdown.toHTML(doc.post);
+            //每访问一次 pv值增加1
                 if(doc) {
+                    collection.update({
+                        "name": name,
+                        "time.day": day,
+                        "title": title
+                    },{
+                        $inc: {pv: 1}
+                    },function(err) {
+                        mongodb.close();
+                        if(err) {
+                            return callback(err);
+                        }
+                    });
+                    //解析 markdown 为 html
+                    //doc.post = markdown.toHTML(doc.post);
                     doc.post = markdown.toHTML(doc.post);
                     if(doc.comments){
                         doc.comments.forEach(function(comment){
@@ -303,4 +316,36 @@ Post.getTag = function(tag, callback) {
             });
         });
     });
+};
+
+//返回通过标题关键字查询的所有文章信息
+Post.search =  function(keyword, callback) {
+  mongodb.open(function (err, db) {
+      if (err) {
+          return callback(err);
+      }
+      db.collection('posts', function (err, collection) {
+          if (err) {
+              mongodb.close();
+              return callback(err);
+          }
+         // var pattern = /^.* + keyword + .*$/i;
+          var pattern = new RegExp("^.*" + keyword + ".*$", "i")
+          collection.find({
+              "title": pattern
+          },{
+              "name": 1,
+              "time": 1,
+              "title": 1
+          }).sort({
+              time: -1
+          }).toArray(function (err,docs){
+              mongodb.close();
+              if(err) {
+                  return callback(err);
+              }
+              callback(null, docs);
+          });
+      });
+  });
 };
