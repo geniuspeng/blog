@@ -19,4 +19,4 @@ Server = require('mongodb').Server;
 //   // db.close();
 //});
 
-module.exports = new Db(settings.db, new Server(settings.host, 27017),{safe: true});
+module.exports = new Db(settings.db, new Server(settings.host, 39331),{safe: true});

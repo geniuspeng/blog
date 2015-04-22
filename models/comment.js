@@ -1,7 +1,9 @@
 /**
  * Created by baiyp on 2015/4/7.
  */
-var mongodb = require('./db');
+//var mongodb = require('./db');
+var mongodb = require('mongodb').MongoClient;
+var settings = require('../settings');
 
 function Comment(name, day, title, comment) {
     this.name = name;
@@ -19,14 +21,14 @@ Comment.prototype.save = function(callback) {
         title = this.title,
         comment = this.comment;
     //打开数据库
-    mongodb.open(function(err,db){
+    mongodb.connect(settings.url, function(err,db){
         if(err) {
             return callback(err);
         }
         //读取posts集合
         db.collection('posts',function(err,collection) {
            if (err) {
-               mongodb.close();
+               db.close();
                return callback(err);
            }
         //通过用户名，时间和标题查找文档，并把一条留言对象添加到该文档的comments数组
@@ -39,7 +41,7 @@ Comment.prototype.save = function(callback) {
                    "comments": comment
                }
            },function(err) {
-               mongodb.close();
+              db.close();
                if(err) {
                    return callback(err);
                }

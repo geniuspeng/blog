@@ -1,7 +1,9 @@
 /**
  * Created by baiyp on 2015/4/5.
  */
-var mongodb = require('./db');
+//var mongodb = require('./db');
+var mongodb = require('mongodb').MongoClient;
+var settings = require('../settings');
 var crypto = require('crypto');
 
 function User(user){
@@ -25,19 +27,19 @@ User.prototype.save = function(callback) {
         head: head
     };
     //打开数据库
-    mongodb.open(function (err, db) {
+    mongodb.connect(settings.url, function (err, db) {
         if (err) {
             return callback(err);
         }
         //读取users集合
         db.collection('users', function (err, collection) {
             if (err) {
-                mongodb.close();
+                db.close();
                 return callback(err);
             }
             //将用户数据插入user集合
             collection.insert(user, {safe: true}, function (err, user) {
-                mongodb.close();
+                db.close();
                 if (err) {
                     return callback(err);
                 }
@@ -50,19 +52,19 @@ User.prototype.save = function(callback) {
 //读取用户信息
 User.get = function(name, callback) {
     //打开数据库
-    mongodb.open(function (err, db) {
+    mongodb.connect(settings.url, function (err, db) {
         if (err) {
             return callback(err);
         }
         //读取users集合
         db.collection('users', function (err, collection) {
             if (err) {
-                mongodb.close();
+                db.close();
                 return callback(err);
             }
             //查找用户名为name的一个文档
             collection.findOne({name: name}, function (err, user) {
-                mongodb.close();
+                db.close();
                 if (err) {
                     return callback(err);
                 }
